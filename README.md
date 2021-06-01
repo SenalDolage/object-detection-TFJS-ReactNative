@@ -19,5 +19,5 @@ This project was done as a pet project and not intended for any commercial use. 
 - [Expo](https://docs.expo.io/)
 - [React Native](https://reactnative.dev/docs/getting-started)
 
-### Contact Information
+## Contact Information
 Email - senal.dolage@gmail.com
