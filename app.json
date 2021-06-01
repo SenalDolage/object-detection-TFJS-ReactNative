@@ -1,0 +1,12 @@
+{
+  "name": "object-detection-with-tfjs",
+  "displayName": "object-detection-with-tfjs",
+  "expo": {
+    "name": "object-detection-with-tfjs",
+    "slug": "object-detection-with-tfjs",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
