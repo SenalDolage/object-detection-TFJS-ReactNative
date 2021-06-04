@@ -7,7 +7,7 @@ This is a pet project to use technologies such as Googles TensorFlow JS and Reac
 git clone https://github.com/SenalDolage/object-detection-TFJS-ReactNative.git .
 
 # Navigate to cloned folder and Install dependencies
-cd object-detection-with-tfjs && yarn install
+yarn install
 
 # Run in IOS, Android or Web
 expo start
