@@ -1,24 +1,56 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  StatusBar,
+  SafeAreaView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { colors, spacing } from "../../theme";
+import { Button } from "../../components";
 
 export function HomeScreen() {
   const navigation = useNavigation();
+  const blindManPlaceholder = require("./blindman.png");
+
   return (
-    <View style={styles.container}>
-      <Text>Home Screen</Text>
-      <Button title="button" onPress={() => navigation.navigate("Camera")} />
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={styles.root}>
+      <View style={styles.container}>
+        <View>
+          <Text>Welcome to Object Detection with TensorFlowJS</Text>
+        </View>
+        <View>
+          <Image source={blindManPlaceholder} />
+        </View>
+        <View style={styles.buttonWrap}>
+          <Button
+            title="Start Scan"
+            onPress={() => navigation.navigate("Camera")}
+            style={{marginRight: 5}}
+          />
+          <Button title="Input Object" />
+        </View>
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
+
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: spacing.medium,
+  },
+
+  buttonWrap: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
