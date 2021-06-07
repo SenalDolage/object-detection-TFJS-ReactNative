@@ -30,7 +30,7 @@ export function HomeScreen() {
             onPress={() => navigation.navigate("Camera")}
             style={{marginRight: 5}}
           />
-          <Button title="Input Object" />
+          <Button title="Input Object" onPress={() => navigation.navigate("Test")} />
         </View>
       </View>
     </SafeAreaView>
