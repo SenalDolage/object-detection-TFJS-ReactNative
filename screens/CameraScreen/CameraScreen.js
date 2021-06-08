@@ -5,11 +5,17 @@ import {
   View,
   StyleSheet,
   Platform,
+  LogBox,
 } from "react-native";
 import { Camera } from "expo-camera";
 import * as tf from "@tensorflow/tfjs";
 import * as mobilenet from "@tensorflow-models/mobilenet";
 import { cameraWithTensors } from "@tensorflow/tfjs-react-native";
+import Constants from "expo-constants";
+import { StatusBar } from "expo-status-bar";
+import { colors, spacing } from "../../theme";
+import { Button } from "../../components";
+LogBox.ignoreAllLogs();
 
 export function CameraScreen() {
   const [predictionFound, setPredictionFound] = useState(false);
@@ -21,7 +27,8 @@ export function CameraScreen() {
     Platform.OS === "ios"
       ? { width: 1080, height: 1920 }
       : { width: 1600, height: 1200 };
-  const tensorDims = { width: 152, height: 200 };
+  // const tensorDims = { width: 152, height: 200 };
+  const tensorDims = { height: 500, width: 290 };
 
   async function loadModel() {
     try {
@@ -94,10 +101,24 @@ export function CameraScreen() {
 
   return (
     <View style={styles.container}>
+      <StatusBar style="light" />
       {model ? (
-        <View style={styles.body}>{renderCameraView()}</View>
+        <View style={styles.cameraContainer}>
+          <View style={styles.scanTextWrap}>
+            <Text style={styles.scanText}>Scanning..</Text>
+          </View>
+          <View>
+            <View>{renderCameraView()}</View>
+          </View>
+          <View>
+            <Button title="Stop scan" />
+          </View>
+        </View>
       ) : (
-        <Text>Still loading</Text>
+        <View>
+          <ActivityIndicator size="large" color={colors.green} />
+          <Text style={styles.loadingText}>TensorFlow is loading...</Text>
+        </View>
       )}
     </View>
   );
@@ -106,20 +127,23 @@ export function CameraScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.green,
     alignItems: "center",
     justifyContent: "center",
+    paddingTop: Constants.statusBarHeight,
+  },
+
+  cameraContainer: {
+    flex: 1,
+    justifyContent: "space-between",
   },
 
   cameraView: {
     display: "flex",
-    flex: 1,
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "flex-end",
     width: "100%",
-    height: "100%",
-    paddingTop: 10,
   },
 
   camera: {
@@ -128,5 +152,21 @@ const styles = StyleSheet.create({
     zIndex: 1,
     borderWidth: 0,
     borderRadius: 0,
+  },
+
+  loadingText: {
+    marginTop: spacing.large,
+  },
+
+  scanTextWrap: {
+    width: "100%",
+    alignItems: "center",
+  },
+
+  scanText: {
+    color: colors.white,
+    fontWeight: "bold",
+    textAlign: "center",
+    alignSelf: "center",
   },
 });

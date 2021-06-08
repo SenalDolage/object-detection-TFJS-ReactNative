@@ -1,13 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 
 export function TestScreen() {
-  useEffect(() => {
-    console.log("a test screen");
-  }, []);
-
   return (
     <View style={styles.container}>
-      <Text>Test</Text>
+      <ActivityIndicator size="large" color="#11AEBA" />
     </View>
   );
 }
