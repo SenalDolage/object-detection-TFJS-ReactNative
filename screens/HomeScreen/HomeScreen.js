@@ -4,7 +4,6 @@ import {
   Text,
   View,
   Image,
-  StatusBar,
   SafeAreaView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -13,24 +12,30 @@ import { Button } from "../../components";
 
 export function HomeScreen() {
   const navigation = useNavigation();
-  const blindManPlaceholder = require("./blindman.png");
+  const homeImage = require("./home-image.png");
 
   return (
     <SafeAreaView style={styles.root}>
       <View style={styles.container}>
-        <View>
-          <Text>Welcome to Object Detection with TensorFlowJS</Text>
+        <View style={styles.welcomingTextWrap}>
+          <Text style={styles.welcomeToText}>Welcome to</Text>
+          <Text style={styles.welcomeSubText}>Object Detection with TensorFlowJS</Text>
         </View>
         <View>
-          <Image source={blindManPlaceholder} />
+          <Image source={homeImage} />
         </View>
         <View style={styles.buttonWrap}>
           <Button
             title="Start Scan"
+            type="dark"
+            style={{ marginBottom: spacing.large }}
             onPress={() => navigation.navigate("Camera")}
-            style={{marginRight: 5}}
           />
-          <Button title="Input Object" onPress={() => navigation.navigate("Test")} />
+          <Button
+            title="Input Object"
+            type="light"
+            onPress={() => navigation.navigate("Test")}
+          />
         </View>
       </View>
     </SafeAreaView>
@@ -46,11 +51,27 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: spacing.medium,
+    paddingVertical: spacing.large,
+    paddingHorizontal: spacing.large,
+  },
+
+  welcomingTextWrap: {
+    alignItems: "center",
+  },
+
+  welcomeToText: {
+    marginBottom: spacing.small,
+    fontSize: 24,
+    color: colors.green,
+  },
+
+  welcomeSubText: {
+    fontWeight: 'bold',
+    fontSize: 25,
+    textAlign: 'center',
   },
 
   buttonWrap: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    width: "90%",
   },
 });
