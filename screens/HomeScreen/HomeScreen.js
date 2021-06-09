@@ -1,12 +1,7 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  SafeAreaView,
-} from "react-native";
+import { StyleSheet, Text, View, Image, SafeAreaView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { StatusBar } from "expo-status-bar";
 import { colors, spacing } from "../../theme";
 import { Button } from "../../components";
 
@@ -17,9 +12,12 @@ export function HomeScreen() {
   return (
     <SafeAreaView style={styles.root}>
       <View style={styles.container}>
+        <StatusBar style="dark" />
         <View style={styles.welcomingTextWrap}>
           <Text style={styles.welcomeToText}>Welcome to</Text>
-          <Text style={styles.welcomeSubText}>Object Detection with TensorFlowJS</Text>
+          <Text style={styles.welcomeSubText}>
+            Object Detection with TensorFlowJS
+          </Text>
         </View>
         <View>
           <Image source={homeImage} />
@@ -66,9 +64,9 @@ const styles = StyleSheet.create({
   },
 
   welcomeSubText: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 25,
-    textAlign: 'center',
+    textAlign: "center",
   },
 
   buttonWrap: {
