@@ -11,7 +11,6 @@ function MainStackNavigator() {
       screenOptions={{
         headerShown: false,
         gestureEnabled: true,
-        stackPresentation: "modal",
       }}
     >
       <Stack.Screen name="Home" component={HomeScreen} />

@@ -14,7 +14,7 @@ import { cameraWithTensors } from "@tensorflow/tfjs-react-native";
 import Constants from "expo-constants";
 import { StatusBar } from "expo-status-bar";
 import { colors, spacing } from "../../theme";
-import { Button } from "../../components";
+import { Button, PopUp } from "../../components";
 LogBox.ignoreAllLogs();
 
 export function CameraScreen() {
@@ -109,7 +109,9 @@ export function CameraScreen() {
         {model ? (
           <View style={styles.cameraContainer}>
             <View style={styles.scanTextWrap}>
-              <Text style={styles.scanText}>Scanning..</Text>
+              <Text style={styles.scanText}>{`${
+                stopPredicting ? "Scanning Stopped" : "Scanning.."
+              }`}</Text>
             </View>
             <View>{renderCameraView()}</View>
             <View>
@@ -124,6 +126,10 @@ export function CameraScreen() {
             <ActivityIndicator size="large" color={colors.white} />
             <Text style={styles.loadingText}>TensorFlow is loading...</Text>
           </View>
+        )}
+
+        {!hasPermission && (
+          <PopUp text="To make this application work it needs permissions to access the camera" />
         )}
       </View>
     </View>
