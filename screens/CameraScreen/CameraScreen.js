@@ -20,6 +20,7 @@ LogBox.ignoreAllLogs();
 export function CameraScreen() {
   const [predictionFound, setPredictionFound] = useState(false);
   const [hasPermission, setHasPermission] = useState();
+  const [stopPredicting, setStopPredicting] = useState(false);
   const [model, setModel] = useState();
   const TensorCamera = cameraWithTensors(Camera);
   let requestAnimationFrameId = 0;
@@ -27,7 +28,6 @@ export function CameraScreen() {
     Platform.OS === "ios"
       ? { width: 1080, height: 1920 }
       : { width: 1600, height: 1200 };
-  // const tensorDims = { width: 152, height: 200 };
   const tensorDims = { height: 500, width: 290 };
 
   async function loadModel() {
@@ -47,6 +47,7 @@ export function CameraScreen() {
       await tf.ready();
       await loadModel();
     })();
+    setStopPredicting(false);
   }, []);
 
   const getPrediction = async (tensor) => {
@@ -72,7 +73,9 @@ export function CameraScreen() {
       await getPrediction(nextImageTensor);
       requestAnimationFrameId = requestAnimationFrame(loop);
     };
-    loop();
+    if (!stopPredicting) {
+      loop();
+    }
   };
 
   const renderCameraView = () => {
@@ -102,24 +105,27 @@ export function CameraScreen() {
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
-      {model ? (
-        <View style={styles.cameraContainer}>
-          <View style={styles.scanTextWrap}>
-            <Text style={styles.scanText}>Scanning..</Text>
-          </View>
-          <View>
+      <View style={styles.innerContainer}>
+        {model ? (
+          <View style={styles.cameraContainer}>
+            <View style={styles.scanTextWrap}>
+              <Text style={styles.scanText}>Scanning..</Text>
+            </View>
             <View>{renderCameraView()}</View>
+            <View>
+              <Button
+                title={`${stopPredicting ? "Start" : "Stop"} Scan`}
+                onPress={() => setStopPredicting(!stopPredicting)}
+              />
+            </View>
           </View>
+        ) : (
           <View>
-            <Button title="Stop scan" />
+            <ActivityIndicator size="large" color={colors.white} />
+            <Text style={styles.loadingText}>TensorFlow is loading...</Text>
           </View>
-        </View>
-      ) : (
-        <View>
-          <ActivityIndicator size="large" color={colors.green} />
-          <Text style={styles.loadingText}>TensorFlow is loading...</Text>
-        </View>
-      )}
+        )}
+      </View>
     </View>
   );
 }
@@ -127,10 +133,16 @@ export function CameraScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.green,
+    backgroundColor: colors.black,
+    paddingVertical: Constants.statusBarHeight,
+  },
+
+  innerContainer: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: Constants.statusBarHeight,
+    paddingVertical: spacing.large,
+    paddingHorizontal: spacing.large,
   },
 
   cameraContainer: {
@@ -143,30 +155,26 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "flex-end",
-    width: "100%",
   },
 
   camera: {
     width: 700 / 2,
     height: 800 / 2,
-    zIndex: 1,
-    borderWidth: 0,
-    borderRadius: 0,
   },
 
   loadingText: {
     marginTop: spacing.large,
+    color: colors.white,
+    fontSize: 15,
   },
 
   scanTextWrap: {
-    width: "100%",
     alignItems: "center",
   },
 
   scanText: {
     color: colors.white,
     fontWeight: "bold",
-    textAlign: "center",
-    alignSelf: "center",
+    fontSize: 15,
   },
 });
