@@ -11,6 +11,7 @@ import { Camera } from "expo-camera";
 import * as tf from "@tensorflow/tfjs";
 import * as mobilenet from "@tensorflow-models/mobilenet";
 import { cameraWithTensors } from "@tensorflow/tfjs-react-native";
+import * as Speech from "expo-speech";
 import Constants from "expo-constants";
 import { StatusBar } from "expo-status-bar";
 import { colors, spacing } from "../../theme";
@@ -28,7 +29,8 @@ export function CameraScreen() {
     Platform.OS === "ios"
       ? { width: 1080, height: 1920 }
       : { width: 1600, height: 1200 };
-  const tensorDims = { height: 500, width: 290 };
+  const tensorDims = { width: 152, height: 200 };
+  //const tensorDims = { height: 500, width: 290 };
 
   async function loadModel() {
     try {
@@ -50,13 +52,22 @@ export function CameraScreen() {
     setStopPredicting(false);
   }, []);
 
+  const itemToSpeech = (text) => {
+    Speech.speak(text);
+  };
+
+  const getUniqueListBy = (arr) => {
+    return [...new Map(arr.map((item) => [item.className, item])).values()];
+  };
+
   const getPrediction = async (tensor) => {
     if (!tensor) {
       return;
     }
-
     const prediction = await model.classify(tensor, 1);
     console.log(`prediction: ${JSON.stringify(prediction)}`);
+    let uniqueListArr = getUniqueListBy(prediction);
+    uniqueListArr.map((item) => itemToSpeech(item.className.split(",")[0]));
 
     if (!prediction || prediction.length === 0) {
       cancelAnimationFrame(requestAnimationFrameId);
@@ -71,10 +82,13 @@ export function CameraScreen() {
     const loop = async () => {
       const nextImageTensor = await imageAsTensors.next().value;
       await getPrediction(nextImageTensor);
+
       requestAnimationFrameId = requestAnimationFrame(loop);
     };
     if (!stopPredicting) {
-      loop();
+      setTimeout(() => {
+        loop();
+      }, 5000);
     }
   };
 
@@ -129,7 +143,10 @@ export function CameraScreen() {
         )}
 
         {!hasPermission && (
-          <PopUp text="To make this application work it needs permissions to access the camera" />
+          <PopUp
+            text="To make this application work it needs permissions to access the camera"
+            buttonText="Understood"
+          />
         )}
       </View>
     </View>
