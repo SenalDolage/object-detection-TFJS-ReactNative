@@ -1,12 +1,16 @@
 import React from "react";
 import MainStackNavigator from "./navigation/Navigator";
+import AppStateProvider from "./context/contextProvider";
 import { NavigationContainer } from "@react-navigation/native";
 
 function App() {
   return (
-    <NavigationContainer>
-      <MainStackNavigator />
-    </NavigationContainer>
+    <AppStateProvider>
+      <NavigationContainer>
+        <MainStackNavigator />
+      </NavigationContainer>
+    </AppStateProvider>
+
   );
 }
 
