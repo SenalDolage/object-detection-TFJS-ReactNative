@@ -1,4 +1,8 @@
-import React from 'react';
+import { createContext } from 'react';
 
-const ItemContext = React.createContext("item");
-export default ItemContext;
+const SearchItemContext = createContext({
+    searchItem: "",
+    setSearchItem: () => { }
+});
+
+export default SearchItemContext;

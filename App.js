@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import MainStackNavigator from "./navigation/Navigator";
-import AppStateProvider from "./context/contextProvider";
 import { NavigationContainer } from "@react-navigation/native";
-import ItemContext from "./context/ItemContext";
+import SearchItemContext from "./context/ItemContext";
 
 function App() {
+  const [item, setItem] = useState("");
+  const value = { item, setItem };
+
   return (
-    <ItemContext.Provider>
+    <SearchItemContext.Provider value={value}>
       <NavigationContainer>
         <MainStackNavigator />
       </NavigationContainer>
-    </ItemContext.Provider>
+    </SearchItemContext.Provider>
   );
 }
 

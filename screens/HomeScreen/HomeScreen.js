@@ -32,7 +32,7 @@ export function HomeScreen() {
           <Button
             title="Input Object"
             type="light"
-            onPress={() => navigation.navigate("Test")}
+            onPress={() => navigation.navigate("SearchByItem")}
           />
         </View>
       </View>

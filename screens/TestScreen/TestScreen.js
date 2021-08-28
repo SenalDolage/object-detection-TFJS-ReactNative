@@ -1,14 +1,15 @@
 import React from "react";
 import { ActivityIndicator, StyleSheet, View, Text } from "react-native";
-import { Button } from "../../components";
+import { Button, VoiceInputItem } from "../../components";
 import { spacing, colors } from "../../theme";
-import ItemContext from "./context/ItemContext";
 
 export function TestScreen() {
-  const context = useContext(ItemContext);
+
   return (
     <View style={styles.container}>
-      <Text>{context}</Text>
+
+      <VoiceInputItem />
+
       <Text style={{ marginBottom: spacing.large }}>Testing Common Items</Text>
       <ActivityIndicator
         size="large"
