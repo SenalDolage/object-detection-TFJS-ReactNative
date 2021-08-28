@@ -1,5 +1,6 @@
 import React from "react";
 import MainStackNavigator from "./navigation/Navigator";
+import AppStateProvider from "./context/contextProvider";
 import { NavigationContainer } from "@react-navigation/native";
 import ItemContext from "./context/ItemContext";
 
