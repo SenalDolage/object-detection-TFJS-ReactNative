@@ -13,6 +13,8 @@ yarn install
 expo start
 ``` 
 
+![Alt text](/screenshots/home-screen.jpeg?raw=true "Optional Title")
+
 ## Additional Information
 This project was done as a pet project and not intended for any commercial use. For more information visit 
 - [TensorFlow JS](https://www.tensorflow.org/js)
