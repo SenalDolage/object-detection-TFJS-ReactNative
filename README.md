@@ -15,6 +15,8 @@ expo start
 
 ![ScreenShot](/screenshots/home-screen.jpeg?raw=true "Optional Title")
 
+<img src="/screenshots/home-screen.jpeg" width="320" height="320"/>
+
 ## Additional Information
 This project was done as a pet project and not intended for any commercial use. For more information visit 
 - [TensorFlow JS](https://www.tensorflow.org/js)
