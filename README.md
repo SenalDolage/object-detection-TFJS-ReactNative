@@ -27,7 +27,7 @@ Scan Screen where user can scan around a environtment to hear the identified obj
 <img src="/screenshots/scan-screen.jpeg" width="320" height="700"/>
 
 How predictions will be given by TF model
-<img src="/screenshots/scan-screen.jpeg" width="800" height="300"/>
+<img src="/screenshots/predictions.png" width="800" height="300"/>
 
 ### Contact Information
 Email - senal.dolage@gmail.com
